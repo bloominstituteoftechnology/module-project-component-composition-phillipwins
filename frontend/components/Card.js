@@ -1,48 +1,37 @@
 import React from 'react';
-import styled from 'styled-components';
+import Figure from './Figure';
+import styled from 'styled-components'
 
-const CardContainer = styled.div`
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  background: tan;
+const StyleCard = styled.div`
+border: 1px solid black;
+padding: 2rem;
+border-radius: 12px;
+
+  h2 {
+    color: ${pr => pr.$color};
+    font-size: 2.5em;
+    margin: 0 0 1rem 0;
+  }
+
+  p {
+    margin: 0 0 1.5rem 0;
+  
+
+    &::first_line {
+        font-size: 1.5em;
+    }
+  }
 `;
 
-const CardTitle = styled.h1`
-  font-size: 2em;
-  margin-bottom: 10px;
-  background: tan;
-`;
-
-const CardDate = styled.p`
-  font-size: 1em;
-  color: #555;
-`;
-
-const CardImage = styled.img`
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-`;
-
-const CardText = styled.p`
-  font-size: 1.2em;
-  margin-top: 10px;
-`;
-
-function Card({ title, text, imageURL, date }) {
+export default function Card({ title, text, image, author, date }) {
   return (
-    <CardContainer>
-      <CardTitle>{title}</CardTitle>
-      <CardDate>{date}</CardDate>
-      <CardImage src={imageURL} alt={title} />
-      <CardText>{text}</CardText>
-    </CardContainer>
+    <StyleCard $color="blue" className='card'>
+      <h2>{title}</h2>
+      <p>{date}</p>
+      <p>{text}</p>
+      <Figure image={image} author={author} date={date} />
+    </StyleCard>
   );
 }
 
-export default Card;
+

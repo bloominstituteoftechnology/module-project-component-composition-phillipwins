@@ -1,38 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Card from './Card';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Card from './Card'
 
-const api_key = 'DEMO_KEY';
-const URL = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
 
-function App() {
-  const [apod, setApod] = useState(null);
+const URL = `http://localhost:9009/api/apod?api_key=DEMO_KEY`
+
+ 
+export default function App() {
+ const [data, setData] = useState()
 
   useEffect(() => {
-    function fetchPhoto() {
+    function fetchAPOD() {
       axios.get(URL)
-        .then(res => {
-          console.log(res.data);
-          setApod(res.data);
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
+       .then(res => {
+          setData(res.data)
+       })
+       .catch(err => {
+        console.log(err.message)
+       })
     }
-    fetchPhoto();
-  }, []);
+    fetchAPOD()
+   }, [])
 
-  if (!apod) return 'Fetching photo of the day...';
+ if (!data) return <p>Fetching data...</p>
   return (
-    <section>
-      <Card 
-        title={apod.title}
-        text={apod.explanation}
-        imageURL={apod.url}
-        date={apod.date}
-      />
-    </section>
-  );
+   <section>
+    <Card 
+     title={data.title}
+     text={data.explanation}
+     image={data.url}
+     author={data.copyright}
+     date={data.date}
+
+    />
+   </section>
+  )
 }
 
-export default App;
